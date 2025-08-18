@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-100">
-      <h1 className="text-4xl font-bold mb-8">Welcome to My Site</h1>
+      <h1 className="text-4xl font-bold mb-8">My Gallery</h1>
       <p className="text-lg text-gray-700 mb-12">
         趣味や作品をまとめたポートフォリオサイトです。
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-4xl">
         <Link
           to="/photos"
           className="rounded-2xl shadow-md bg-white p-6 hover:shadow-xl transition"
@@ -28,21 +28,21 @@ export default function Home() {
           </p>
         </Link>
 
-        <a
-          href="/profile"
+        <Link
+          to="/articles"
           className="rounded-2xl shadow-md bg-white p-6 hover:shadow-xl transition"
         >
-          <h2 className="text-xl font-semibold mb-2">👤 Profile</h2>
-          <p className="text-gray-600">簡単な自己紹介・Background</p>
-        </a>
+          <h2 className="text-xl font-semibold mb-2">📝 Articles</h2>
+          <p className="text-gray-600">Zennなどで書いた技術記事のまとめ</p>
+        </Link>
 
-        <a
-          href="/links"
+        <Link
+          to="/portfolio"
           className="rounded-2xl shadow-md bg-white p-6 hover:shadow-xl transition"
         >
-          <h2 className="text-xl font-semibold mb-2">🔗 Links</h2>
-          <p className="text-gray-600">Zenn / はてなブログ など外部記事へのリンク</p>
-        </a>
+          <h2 className="text-xl font-semibold mb-2">👤 Portfolio</h2>
+          <p className="text-gray-600">自己紹介・スキル・作品の詳細</p>
+        </Link>
       </div>
     </main>
   );
