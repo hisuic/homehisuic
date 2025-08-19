@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const availableModels = [
-  { id: "works-huracan", name: "Works Huracan", description: "Lamborghini Huracan（Works仕様）の3Dモデル" },
+  { id: "works-huracan", name: "LibertyWalk Lamborghini Huracan Coupe", description: "LibertyWalk本社で撮影したLamborghini Huracanの3Dモデルです．" },
 ];
 
 export default function CarModelsIndex() {
