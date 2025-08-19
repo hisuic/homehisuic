@@ -4,7 +4,7 @@ export function ContactSection() {
 	return (
 		<div className="bg-white rounded-2xl shadow-md p-8" id="contact">
 			<header className="text-center mb-8">
-				<h1 className="text-3xl font-bold mb-2">Contact</h1>
+				<h1 className="text-3xl font-bold mb-2">Links</h1>
 				<p className="text-gray-600">私が使用している各種アカウントのリンク</p>
 			</header>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
