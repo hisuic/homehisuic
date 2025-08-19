@@ -44,7 +44,7 @@ export default function PortfolioIndex() {
 				<AboutMeSection />
 				<ContactSection />
 				<SkillsSection />
-				<WorksSection />
+				{/* <WorksSection /> */}
 			</div>
 		</main>
 	);
