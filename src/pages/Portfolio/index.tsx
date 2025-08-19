@@ -42,9 +42,9 @@ export default function PortfolioIndex() {
 
 			<div className="mt-12 w-full max-w-4xl space-y-12">
 				<AboutMeSection />
+				<ContactSection />
 				<SkillsSection />
 				<WorksSection />
-				<ContactSection />
 			</div>
 		</main>
 	);

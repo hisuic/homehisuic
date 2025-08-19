@@ -4,39 +4,19 @@ const skillCategories = [
 	{
 		category: "プログラミング言語",
 		skills: [
-			{ name: "JavaScript/TypeScript", level: 90, color: "bg-yellow-500" },
-			{ name: "Python", level: 85, color: "bg-blue-500" },
-			{ name: "Java", level: 80, color: "bg-orange-500" },
-			{ name: "C++", level: 75, color: "bg-blue-600" },
-			{ name: "Go", level: 70, color: "bg-cyan-500" }
-		]
-	},
-	{
-		category: "フレームワーク・ライブラリ",
-		skills: [
-			{ name: "React", level: 90, color: "bg-cyan-400" },
-			{ name: "Node.js", level: 85, color: "bg-green-500" },
-			{ name: "Vue.js", level: 80, color: "bg-green-400" },
-			{ name: "Django", level: 75, color: "bg-green-600" },
-			{ name: "TensorFlow", level: 70, color: "bg-orange-500" }
-		]
-	},
-	{
-		category: "データベース",
-		skills: [
-			{ name: "PostgreSQL", level: 85, color: "bg-blue-500" },
-			{ name: "MongoDB", level: 80, color: "bg-green-500" },
-			{ name: "Redis", level: 75, color: "bg-red-500" },
-			{ name: "MySQL", level: 80, color: "bg-blue-600" }
+			{ name: "C", level: "個人で日常的に使用", color: "bg-blue-600" },
+			{ name: "Python", level: "実務経験あり.個人でも日常的に使用", color: "bg-blue-500" },
+			{ name: "Java", level: "基礎理解", color: "bg-orange-500" },
+			{ name: "TypeScript", level: "個人で使用経験あり．まだ理解は浅い", color: "bg-yellow-500" },
+			{ name: "Rust", level: "基礎理解．学習中", color: "bg-orange-500" },
 		]
 	},
 	{
 		category: "ツール・インフラ",
 		skills: [
-			{ name: "Docker", level: 85, color: "bg-blue-500" },
-			{ name: "AWS", level: 80, color: "bg-orange-500" },
-			{ name: "Git", level: 90, color: "bg-orange-600" },
-			{ name: "Linux", level: 85, color: "bg-yellow-600" }
+			{ name: "Git, GitHub", level: "実務経験あり, 個人でも日常的に使用", color: "bg-orange-600" },
+			{ name: "Linux", level: "実務経験あり, 個人でも日常的に使用", color: "bg-yellow-600" },
+			{ name: "Docker", level: "実務経験はあるがまだ理解が浅い", color: "bg-blue-500" }
 		]
 	}
 ];
@@ -59,33 +39,14 @@ export function SkillsSection() {
 								<div key={skill.name} className="space-y-2">
 									<div className="flex justify-between items-center">
 										<span className="font-medium text-gray-700">{skill.name}</span>
-										<span className="text-sm text-gray-500">{skill.level}%</span>
-									</div>
-									<div className="w-full bg-gray-200 rounded-full h-2">
-										<div
-											className={`h-2 rounded-full ${skill.color}`}
-											style={{ width: `${skill.level}%` }}
-										></div>
+                                        <span> : </span>
+										<span className="text-sm text-gray-500">{skill.level}</span>
 									</div>
 								</div>
 							))}
 						</div>
 					</div>
 				))}
-			</div>
-			<div className="mt-8 p-6 bg-gray-50 rounded-lg">
-				<h3 className="text-lg font-semibold mb-3">スキルレベルについて</h3>
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-					<div>
-						<span className="font-medium">90-100%:</span> 実務で十分に活用でき、他者に指導できるレベル
-					</div>
-					<div>
-						<span className="font-medium">80-89%:</span> 実務で問題なく使用でき、応用も可能なレベル
-					</div>
-					<div>
-						<span className="font-medium">70-79%:</span> 基本的な使用は可能で、学習を継続中のレベル
-					</div>
-				</div>
 			</div>
 		</div>
 	);
@@ -103,4 +64,4 @@ export default function Skills() {
 			</div>
 		</main>
 	);
-} 
+}

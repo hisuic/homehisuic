@@ -11,17 +11,10 @@ const worksData = [
 	{
 		title: "Image Classifier",
 		year: 2023,
-		description: "TensorFlow を使った画像分類モデルの実験とデモアプリ。",
-		techs: ["Python", "TensorFlow", "FastAPI"],
+		description: "画像分類モデルの実験とデモアプリ。",
+		techs: ["Python"],
 		links: [{ label: "GitHub", href: "https://github.com/yourusername/image-classifier" }]
 	},
-	{
-		title: "Realtime Chat App",
-		year: 2022,
-		description: "WebSocket を用いたリアルタイムチャット。ログイン、既読、通知などを実装。",
-		techs: ["React", "Node.js", "WebSocket", "Redis"],
-		links: [{ label: "GitHub", href: "https://github.com/yourusername/realtime-chat" }]
-	}
 ];
 
 export function WorksSection() {
@@ -29,7 +22,7 @@ export function WorksSection() {
 		<div className="bg-white rounded-2xl shadow-md p-8" id="works">
 			<header className="text-center mb-8">
 				<h1 className="text-3xl font-bold mb-2">Works</h1>
-				<p className="text-gray-600">最近の作品・成果物（まだサイト製作段階のサンプル情報なので全部嘘です．あとからしっかり更新します．）</p>
+				<p className="text-gray-600">最近の作品・成果物（まだサイト製作段階のサンプル情報です．あとからしっかり更新します．）</p>
 			</header>
 
 			<div className="space-y-6">
