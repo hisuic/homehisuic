@@ -1,4 +1,3 @@
-// src/routes.tsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Suspense, lazy } from "react";
 
