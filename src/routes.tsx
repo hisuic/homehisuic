@@ -14,6 +14,7 @@ const Portfolio = lazy(() => import("./pages/Portfolio"));
 const AboutMe = lazy(() => import("./pages/Portfolio/AboutMe"));
 const Skills = lazy(() => import("./pages/Portfolio/Skills"));
 const Contact = lazy(() => import("./pages/Portfolio/Contact"));
+const Works = lazy(() => import("./pages/Portfolio/Works"));
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
   { path: "/portfolio/about-me", element: <AboutMe /> },
   { path: "/portfolio/skills", element: <Skills /> },
   { path: "/portfolio/contact", element: <Contact /> },
+  { path: "/portfolio/works", element: <Works /> },
 ]);
 
 export default function AppRoutes() {
