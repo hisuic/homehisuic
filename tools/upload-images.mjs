@@ -14,16 +14,14 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
 
-// dist-images 以下のファイルを全部アップロード
 const LOCAL_DIR = "dist-images";
 const files = await fg(`${LOCAL_DIR}/**/*.{avif,jpg}`, { dot:false });
 
 for (const localPath of files) {
   const relPath = path.relative(LOCAL_DIR, localPath).replaceAll("\\", "/");
-  // バケット内のパスはそのまま使う: 例) {subdir}/basename-640.avif
   const storagePath = relPath;
 
-  // すでに存在するならスキップ（idempotent運用）
+  // 既存チェック（冪等）
   const { data: stat, error: statErr } = await supabase
     .storage.from(SUPABASE_BUCKET)
     .list(path.dirname(storagePath) === "." ? "" : path.dirname(storagePath), { search: path.basename(storagePath) });
