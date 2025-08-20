@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "dotenv/config";
 
 // export default function PhotosPage() {
 //   return (
@@ -14,7 +15,7 @@ import { Link } from "react-router-dom";
 
 const PUBLIC_BASE = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/${import.meta.env.VITE_SUPABASE_BUCKET}`;
 
-export function Photo({ basePath, alt }: { basePath: string; alt: string }) {
+export function PhotosSection({ basePath, alt }: { basePath: string; alt: string }) {
   return (
     <picture>
       <source
@@ -34,3 +35,16 @@ export function Photo({ basePath, alt }: { basePath: string; alt: string }) {
   );
 }
 
+export default function Photos() {
+	return (
+		<main className="min-h-screen flex flex-col items-center p-6 bg-gray-100">
+			<div className="w-full max-w-4xl">
+				<Link to="/photos" className="text-blue-600 hover:underline mb-4 inline-block">
+					← ポートフォリオ一覧に戻る
+				</Link>
+				
+				<PhotosSection />
+			</div>
+		</main>
+	);
+} 
