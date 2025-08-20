@@ -1,7 +1,10 @@
+import "dotenv/config";
 import fs from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import fg from "fast-glob";
+
+const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_BUCKET } = process.env;
 
 const INPUT_DIR = "originals";      // 元画像置き場
 const OUTPUT_DIR = "dist-images";   // 変換結果

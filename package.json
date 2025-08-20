@@ -35,5 +35,10 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"
+  },
+  "scripts": {
+    "photos:build": "node tools/build-images.mjs",
+    "photos:upload": "node tools/upload-images.mjs",
+    "photos": "npm run photos:build && npm run photos:upload"
   }
 }
