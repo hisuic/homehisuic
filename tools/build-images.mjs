@@ -4,12 +4,11 @@ import path from "node:path";
 import sharp from "sharp";
 import fg from "fast-glob";
 
-const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_BUCKET } = process.env;
+const { IMAGE_INPUT_DIRECTORY } = process.env;
 
-const INPUT_DIR = "originals";      // 元画像置き場
-const OUTPUT_DIR = "dist-images";   // 変換結果
+const INPUT_DIR = IMAGE_INPUT_DIRECTORY;
+const OUTPUT_DIR = "dist-images";
 
-// 今回の要件
 const SIZES = [640, 1600];
 const Q = { avif: 50, jpeg: 78 };
 
