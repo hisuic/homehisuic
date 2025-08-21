@@ -7,16 +7,12 @@ function Photo({ basePath, alt }: { basePath: string; alt: string }) {
 
   return (
     <picture className="block">
-      <source type="image/avif" srcSet={avif} />
+      <source type="image/avif" srcSet={`${PUBLIC_BASE}/${basePath}-640.avif`} />
       <img
         src={`${PUBLIC_BASE}/${basePath}-640.jpg`}
-        srcSet={jpg}
-        // 列数に合わせた概算。画像幅の最適選択用（潰れ対策とは無関係）
-        sizes="(min-width:1024px) 25vw, (min-width:768px) 33vw, 50vw"
         alt={alt}
         loading="lazy"
         decoding="async"
-        // 高さだけ指定／幅は自動。縦写真は左右に余白が出てもOK
         className="h-48 md:h-56 lg:h-64 w-auto max-w-full object-contain rounded-lg"
       />
     </picture>
