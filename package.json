@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-three/drei": "^10.7.3",
     "@react-three/fiber": "^9.3.0",
+    "@supabase/supabase-js": "^2.55.0",
     "@types/three": "^0.179.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -24,12 +25,20 @@
     "@types/react-dom": "^19.1.7",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^5.0.0",
+    "dotenv": "^17.2.1",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "fast-glob": "^3.3.3",
     "globals": "^16.3.0",
+    "sharp": "^0.34.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"
+  },
+  "scripts": {
+    "photos:build": "node tools/build-images.mjs",
+    "photos:upload": "node tools/upload-images.mjs",
+    "photos": "npm run photos:build && npm run photos:upload"
   }
 }
