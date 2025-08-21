@@ -5,8 +5,9 @@ import fg from "fast-glob";
 
 const INPUT_DIR  = process.env.PHOTOS_INPUT_DIR  || "originals";
 const OUTPUT_DIR = process.env.PHOTOS_OUTPUT_DIR || "dist-images";
-const SIZES = [640, 1600];
-const Q = { avif: 50, jpeg: 78 };
+
+const HEIGHT = 500;                 // ← 縦幅固定（px）
+const Q = { webp: 80 };             // ← WebP の品質だけに
 
 // 大小どちらも拾う & caseSensitiveMatch: false
 const GLOB = `${INPUT_DIR}/**/*.{jpg,jpeg,png,tif,tiff,webp,avif,JPG,JPEG,PNG,TIF,TIFF,WEBP,AVIF}`;
@@ -20,7 +21,7 @@ if (files.length === 0) {
   process.exit(1);
 }
 
-const exists = async (p) => fs.access(p).then(() => true).catch(() => false);
+const exists = async (p: string) => fs.access(p).then(() => true).catch(() => false);
 
 for (const inPath of files) {
   const base = path.parse(inPath).name; // 拡張子なし
@@ -28,27 +29,20 @@ for (const inPath of files) {
   const outDir = path.join(OUTPUT_DIR, relDir);
   await fs.mkdir(outDir, { recursive: true });
 
-  for (const width of SIZES) {
-    const outAvif = path.join(outDir, `${base}-${width}.avif`);
-    const outJpg  = path.join(outDir, `${base}-${width}.jpg`);
-    if (await exists(outAvif) && await exists(outJpg)) {
-      console.log("skip (built):", path.join(relDir, `${base}-${width}`));
-      continue;
-    }
-
-    const img = sharp(inPath, { failOn: "none" })
-      .rotate()
-      .resize({ width, withoutEnlargement: true })
-      .withMetadata({ icc: "sRGB" });
-
-    if (!(await exists(outAvif))) {
-      await img.avif({ quality: Q.avif, effort: 4, chromaSubsampling: "4:2:0" }).toFile(outAvif);
-      console.log("built:", path.join(relDir, `${base}-${width}.avif`));
-    }
-    if (!(await exists(outJpg))) {
-      await img.jpeg({ quality: Q.jpeg, progressive: true, mozjpeg: true }).toFile(outJpg);
-      console.log("built:", path.join(relDir, `${base}-${width}.jpg`));
-    }
+  // 出力は WebP 1種類（高さ500px固定）
+  const outWebp = path.join(outDir, `${base}-h${HEIGHT}.webp`);
+  if (await exists(outWebp)) {
+    console.log("skip (built):", path.join(relDir, `${base}-h${HEIGHT}.webp`));
+    continue;
   }
+
+  const img = sharp(inPath, { failOn: "none" })
+    .rotate()
+    .resize({ height: HEIGHT, withoutEnlargement: true }) // ← 縦固定＆拡大しない
+    .withMetadata({ icc: "sRGB" });
+
+  await img.webp({ quality: Q.webp, effort: 4 }).toFile(outWebp);
+  console.log("built:", path.join(relDir, `${base}-h${HEIGHT}.webp`));
 }
+
 console.log("[build-images] done ->", OUTPUT_DIR);
