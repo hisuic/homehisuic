@@ -21,7 +21,7 @@ if (files.length === 0) {
   process.exit(1);
 }
 
-const exists = async (p: string) => fs.access(p).then(() => true).catch(() => false);
+const exists = async (p) => fs.access(p).then(() => true).catch(() => false);
 
 for (const inPath of files) {
   const base = path.parse(inPath).name; // 拡張子なし

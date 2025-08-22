@@ -4,13 +4,13 @@ import fs from "node:fs/promises";
 import fg from "fast-glob";
 import { createClient } from "@supabase/supabase-js";
 
-const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_BUCKET } = process.env;
-if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !SUPABASE_BUCKET) {
-  console.error("Missing env: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY / SUPABASE_BUCKET");
+const { VITE_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, VITE_SUPABASE_BUCKET } = process.env;
+if (!VITE_SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !VITE_SUPABASE_BUCKET) {
+  console.error("Missing env: VITE_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY / VITE_SUPABASE_BUCKET");
   process.exit(1);
 }
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+const supabase = createClient(VITE_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
 
@@ -22,7 +22,7 @@ for (const localPath of files) {
   const storagePath = relPath;
 
   const { data: stat, error: statErr } = await supabase
-    .storage.from(SUPABASE_BUCKET)
+    .storage.from(VITE_SUPABASE_BUCKET)
     .list(path.dirname(storagePath) === "." ? "" : path.dirname(storagePath), { search: path.basename(storagePath) });
 
   if (!statErr && stat?.some(f => f.name === path.basename(storagePath))) {
@@ -34,7 +34,7 @@ for (const localPath of files) {
   const contentType = "image/webp";
 
   const { error } = await supabase
-    .storage.from(SUPABASE_BUCKET)
+    .storage.from(VITE_SUPABASE_BUCKET)
     .upload(storagePath, buf, {
       contentType,
       cacheControl: "public, max-age=31536000, immutable",
