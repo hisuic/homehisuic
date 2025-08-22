@@ -15,13 +15,12 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
 });
 
 const LOCAL_DIR = "dist-images";
-const files = await fg(`${LOCAL_DIR}/**/*.{avif,jpg}`, { dot:false });
+const files = await fg(`${LOCAL_DIR}/**/*.webp`, { dot:false, caseSensitiveMatch: false });
 
 for (const localPath of files) {
   const relPath = path.relative(LOCAL_DIR, localPath).replaceAll("\\", "/");
   const storagePath = relPath;
 
-  // 既存チェック（冪等）
   const { data: stat, error: statErr } = await supabase
     .storage.from(SUPABASE_BUCKET)
     .list(path.dirname(storagePath) === "." ? "" : path.dirname(storagePath), { search: path.basename(storagePath) });
@@ -32,7 +31,7 @@ for (const localPath of files) {
   }
 
   const buf = await fs.readFile(localPath);
-  const contentType = localPath.endsWith(".avif") ? "image/avif" : "image/jpeg";
+  const contentType = "image/webp";
 
   const { error } = await supabase
     .storage.from(SUPABASE_BUCKET)
