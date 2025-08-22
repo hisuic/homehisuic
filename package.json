@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "photos:build": "node tools/build-images.mjs",
+    "photos:upload": "node tools/upload-images.mjs",
+    "photos": "npm run photos:build && npm run photos:upload"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.3",
@@ -35,10 +38,5 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"
-  },
-  "scripts": {
-    "photos:build": "node tools/build-images.mjs",
-    "photos:upload": "node tools/upload-images.mjs",
-    "photos": "npm run photos:build && npm run photos:upload"
   }
 }
