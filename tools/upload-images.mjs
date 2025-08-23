@@ -4,26 +4,25 @@ import fs from "node:fs/promises";
 import fg from "fast-glob";
 import { createClient } from "@supabase/supabase-js";
 
-const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_BUCKET } = process.env;
-if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !SUPABASE_BUCKET) {
-  console.error("Missing env: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY / SUPABASE_BUCKET");
+const { VITE_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, VITE_SUPABASE_BUCKET } = process.env;
+if (!VITE_SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !VITE_SUPABASE_BUCKET) {
+  console.error("Missing env: VITE_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY / VITE_SUPABASE_BUCKET");
   process.exit(1);
 }
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+const supabase = createClient(VITE_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
 
 const LOCAL_DIR = "dist-images";
-const files = await fg(`${LOCAL_DIR}/**/*.{avif,jpg}`, { dot:false });
+const files = await fg(`${LOCAL_DIR}/**/*.webp`, { dot:false, caseSensitiveMatch: false });
 
 for (const localPath of files) {
   const relPath = path.relative(LOCAL_DIR, localPath).replaceAll("\\", "/");
   const storagePath = relPath;
 
-  // 既存チェック（冪等）
   const { data: stat, error: statErr } = await supabase
-    .storage.from(SUPABASE_BUCKET)
+    .storage.from(VITE_SUPABASE_BUCKET)
     .list(path.dirname(storagePath) === "." ? "" : path.dirname(storagePath), { search: path.basename(storagePath) });
 
   if (!statErr && stat?.some(f => f.name === path.basename(storagePath))) {
@@ -32,10 +31,10 @@ for (const localPath of files) {
   }
 
   const buf = await fs.readFile(localPath);
-  const contentType = localPath.endsWith(".avif") ? "image/avif" : "image/jpeg";
+  const contentType = "image/webp";
 
   const { error } = await supabase
-    .storage.from(SUPABASE_BUCKET)
+    .storage.from(VITE_SUPABASE_BUCKET)
     .upload(storagePath, buf, {
       contentType,
       cacheControl: "public, max-age=31536000, immutable",
